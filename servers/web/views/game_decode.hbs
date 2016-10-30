@@ -1,0 +1,1137 @@
+﻿<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<div id="fb-root"></div>
+<div id="fps_box" style="opacity: 0; pointer-Events: none;"></div>
+<div id="chatlog" style="position: absolute; bottom: 50px; left: 10px; background-Color: white; width: 300px; max-height: 342px; z-index: 100; opacity: 0.5; border-radius: 10px; padding: 10px 15px 10px 15px; overflow: hidden; overflow-y: hidden;">
+</div>
+<div id="admin_menu" style="opacity: 0; pointer-Events: none;">
+<button class="menu_obj_btn" style="position: absolute; top: 50px; left: -5px; width: 30px; height: 100px; z-index: 100; text-align: center;" onclick="show_menu();"></button>
+<div id="glob_menu" style="opacity: 0; pointer-Events: none;">
+<button id="admnbtn" class="menu_obj_btn" style="position: absolute; top: 50px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="show_mass();">Масса</button>
+<button id="admnbtn" class="menu_obj_btn" style="position: absolute; top: 50px; left: 155px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="show_spikedm();">Шипы</button>
+<div id="mass_menu" style="opacity: 0; pointer-Events: none;">
+<button class="menu_obj_btn" style="position: absolute; top: 80px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-mass+100'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">+100</button>
+<button class="menu_obj_btn" style="position: absolute; top: 110px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-mass+1000'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">+1000</button>
+<button class="menu_obj_btn" style="position: absolute; top: 140px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-mass+10000'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">+10000</button>
+<button class="menu_obj_btn" style="position: absolute; top: 170px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-mass-100'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">-100</button>
+<button class="menu_obj_btn" style="position: absolute; top: 200px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-mass-1000'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">-1000</button>
+<button class="menu_obj_btn" style="position: absolute; top: 230px; left: 25px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-mass-10000'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">-10000</button>
+</div>
+<div id="spiked_menu" style="opacity: 0; pointer-Events: none;">
+<button class="menu_obj_btn" style="position: absolute; top: 80px; left: 155px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-spiked';  var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">Вкл</button>
+<button class="menu_obj_btn" style="position: absolute; top: 110px; left: 155px; width: 130px; height: 30px; z-index: 100; text-align: center;" onclick="chat_textbox.value='-spiked_off'; var e = jQuery.Event('keydown', { keyCode: 13 }); jQuery('#chat_textbox').trigger( e ); jQuery('#chat_textbox').trigger( e );">Выкл</button>
+</div>
+</div>
+</div>
+<div id="overlays" style="display:none; position: absolute; left: 0; right: 0; top: 0px; bottom: 0; background-color: rgba(0,0,0,0.5); background-image: url(fon.jpg); background-size: 100% 100%; z-index: 200;">
+	<div style="position: absolute; bottom: 0px; right: 0px; border-radius: 5px 0px 0px 0px; background-color: black; opacity: 0.6; padding-left: 5px; padding-right: 5px;"><a href="#" onclick="location='http://'+location.hostname+':81'" class="menu_text">Главная</a> | <a href="#" onclick="location='http://'+location.hostname+':81/top3.php'" class="menu_text">Топ Кланов</a> | <a href="#" onclick="location='http://'+location.hostname+':81/donate.php'" class="menu_text">Донат</a> | <a href="#" onclick="location='https://vk.com/greenteeas_official'" class="menu_text">Группа Вк</a> | <a href="#" onclick="location='http://'+location.hostname+':81/pod.php'" class="menu_text">Тех. Поддержка</a></div>
+	<div id="settingsBlock" show="false" style="position: fixed; left: 50%; top: 50%; opacity: 0; pointer-Events: none; width: 350px; height: 378px; padding: 26px 15px 15px 15px; -webkit-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); margin: 10px auto; margin-right: -50%; background-color: white; border-radius: 15px; z-index: 3000;">
+	<div></div>
+	<center>
+	<a href="#" class="btn btn menu_obj_btn" role="button" onclick="show_settingsBlock();" style="width: 150px; margin-top: 5px;">Вернуться</a>
+<br>
+<script src="//ulogin.ru/js/ulogin.js"></script>
+<a href="#" id="exit" style= "position: absolute; top: 26px; right: 15px;">Выход</a>
+<h1><div id="login-top" style="text-align: center;">Войти:</div></h1>
+<div id="lk"></div>
+<div id="uLogin" data-ulogin="display=panel;fields=first_name,last_name;providers=vkontakte,facebook,googleplus;hidden=;redirect_uri=;callback=qlogin" style="margin-left: 12px;"></div>
+    <form enctype="multipart/form-data" action="upload" method="POST">
+	<input type="file" id="skin_set" value="2" name="fileToUpload" style="position: absolute; top: 26px; left: 15px; opacity: 0; pointer-Events: none;">
+	<input type="submit" id="skin_load" value="Загрузить" name="submit" style="position: absolute; top: 26px; left: 15px; opacity: 0; pointer-Events: none;">
+    </form>
+	</center>
+	</div>
+	<div show="true" id="helloDialog" style="width: 560px;">
+	<div id="info_Block" style="position: fixed; left: 50%; top: 50%; opacity: 0; pointer-Events: none; width: 250px; height: 260px; padding: 15px 15px 15px 15px; -webkit-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); margin-right: -50%; background-color: white; border-radius: 15px;">
+	<div id="info_text" style="text-align: left;">
+	<div id="info_text_mode"></div>
+	</div>
+	</p>
+	<button class="btn menu_obj_btn" onclick="playBtn.click();" style="width: 100%;">Играть</button>
+	<button style="position: absolute; opacity: 0; pointer-Events: none;" id="spectateBtn" onclick="setCookie('region_cookie',region.value,999); setTimeout(function(){spectate();},110); fon_off(); return false;">Наблюдать</button>
+	<button style="width: 100px; margin-left: 60px; margin-top: 15px;" onclick="spectateBtn.click();" class="btn btn-needs-server menu_obj_btn">Наблюдать</button>
+	</div>
+        <form role="form">
+            <div class="form-group">
+                <div style="float: left; margin-left: 140px;"><img src="logo.png" style="pointer-Events: none;"></img></div>
+				<div id="online_obj" class="online_text" style="position: absolute; top: 57px; left: 174px;"></div><br><br>
+                <br clear="both"/>
+            </div>
+            <div class="form-group">
+                <input id="nick" class="menu_obj_input" placeholder="Ник" maxlength="15" style="position: absolute; top: 79px; left: 15px; width: 72%;" onchange="setCookie(this.id+'_cookie',this.value,999);"/>
+				<input id="upassword" class="menu_obj_input" type="password" style="position: absolute; top: 31px; left: 420px; width: 22%; margin-top: 50px;" placeholder="пароль"/>
+                <select id="gamemode" class="form-control" onchange="setGameMode($(this).val());" style="opacity: 0; pointer-Events: none; position: absolute;" required>
+                    <option selected value="">FFA</option>
+                </select>
+                <br clear="both"/>
+            </div>
+			<div style="position: absolute; left: 15px; top: 127.5px;">
+					<a href="#" id="FFA" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">FFA</a>
+                    <a href="#" id="MegaSplit" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">MegaSplit</a>
+                    <a href="#" id="EXPERIMENTAL" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">EXPERIMENTAL</a>
+					<a href="#" id="TEAM" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">TEAM</a>
+                    <a href="#" id="FastFood_FFA" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">FastFood FFA</a>
+                    <a href="#" id="RainBow" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">RainBow</a>
+                    <a href="#" id="HardCore_FFA" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">HardCore FFA</a>
+					<a href="#" id="HardCore_EXP" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">HardCore EXP</a>
+                    <a href="#" id="BotsTeam_FFA" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">BotsTeam FFA</a>
+					<a href="#" id="YouTube" class="btn menu_obj_btn menu_obj_gamemode_btn" role="button" style="width: 140px;" onclick="selected_mode=this.id; setMode(); show_info(this.id); setCookie('region_cookie',this.id,999); region.value='';">YouTube</a>
+				</div>
+                <div style="position: absolute; right: 15px; top: 126px;">
+
+                    <a href="https://vk.com/greenteeas_official" class="btn menu_obj_btn" role="button" style="width: 140px;">Группа Вк</a>
+                    <a href="#" id="skinloader" class="btn menu_obj_btn" onclick="skin_set_func();" role="button" style="width: 140px;">Свой Скин</a>
+                    <a href="gallery" class="btn menu_obj_btn" role="button" style="width: 140px;">Скины</a>
+					<a href="#" id="login" class="btn menu_obj_btn" onclick="show_settingsBlock();" role="button" style="width: 140px;">Войти</a>
+					<a href="#" id="cookie_clearBtn" class="btn menu_obj_btn" onclick="cookie_clear();" role="button" style="width: 140px;">Почистить Cookie</a>
+                    <a href="#" id="chat_show" class="btn menu_obj_btn" onclick="show_chat();" role="button" style="width: 140px;">Выкл. Чат</a>
+					<a href="#" id="settingsButton_R" onclick="$('#settings, #instructions').toggle(); check_settings(); return false;" class="btn menu_obj_btn" style="width: 140px;">Настройки<!--i class="glyphicon glyphicon-cog"--></i></a>
+				</div>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<style>
+.menu_obj_gamemode_btn {
+padding: 1px 3px;
+margin-bottom: 0px;
+width: 120px;
+}
+.online_text {
+color: green;
+text-shadow: black 0px 0px 1px;
+font-size: 125%;
+pointer-Events: none;
+}
+.menu_text {
+color: green;
+text-shadow: black 0px 0px 1px;
+}
+h2 {
+font-family: Lobster;
+font-size: 40px;
+color: green;
+text-shadow: black 0px 0px 1px;
+font-width: 600px;
+pointer-Events: none;
+}
+.menu_obj {
+text-align: center;
+color: rgb(238, 238, 238);
+text-shadow: black 0px 0px 3px;
+background-color: #3aa025;
+text-decoration: none;
+display:block;
+}
+.menu_obj:hover {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj:active {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj:focus {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj_btn {
+text-align: center;
+color: rgb(238, 238, 238);
+text-shadow: black 0px 0px 3px;
+background-color: #3aa025;
+text-decoration: none;
+display:block;
+border: 1px solid grey;
+margin-top: 4px;
+}
+.menu_obj_btn:hover {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj_btn:active {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj_btn:focus {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj_input {
+border-radius: 4px;
+text-align: left;
+color: white;
+text-shadow: black 0px 0px 3px;
+background-color: #3aa025;
+text-decoration: none;
+display: block;
+border: 2px solid grey;
+margin-top: 2px;
+height: 30px;
+padding-left: 10px;
+padding-right: 10px;
+}
+
+.menu_obj_input:hover {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+
+.menu_obj_input:active {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+.menu_obj_input:focus {
+color: lime;
+background-color: green;
+text-decoration: none;
+}
+</style>
+<br>
+        <div id="locationUnknown">
+                <select id="region" class="form-control" style="width: 245px; position: absolute; top: 130px; right: 158px; background-Color: #3aa025;" size="17" onchange="show_info(); check_settings();" required>
+                    {{#each regions}}
+                        <option class="menu_obj" value='{{this.val}}'>{{this.name}}</option>
+                    {{else}}
+                        <option disabled value=''>Нет Серверов</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div>
+                <div class="text-muted region-message CN-China">
+
+                </div>
+            </div>
+            <div class="form-group" style="position: absolute;">
+
+
+                <button type="submit" id="playBtn"
+                        onclick="setRegion($('#region').val()); check_settings(); setNick(document.getElementById('nick').value); setCookie('nick_cookie',nick.value,999); fon_off(); return false;"
+                        class="btn btn-play btn-primary btn-needs-server" style="width: 228px; opacity: 0; pointer-Events: none; position: absolute;">Играть
+                </button>
+                <br clear="both"/>
+            </div>
+            <div id="settings" class="checkbox" style="display:none;">
+                <div class="form-group" id="mainform" style="position: absolute; opacity: 0; pointer-Events: none;">
+                    <br clear="both"/>
+                </div>
+                <div style="margin: 6px;">
+				<br><hr>
+                    <label><input id="skins_box" type="checkbox" onchange="setSkins(!$(this).is(':checked')); setCookie(this.id+'_cookie',this.checked,999);"> Убрать Скины</label>
+                    <label><input id="names_box" type="checkbox" onchange="setNames(!$(this).is(':checked')); setCookie(this.id+'_cookie',this.checked,999);"> Убрать Ники</label>
+                    <label><input id="colors_box" type="checkbox" onchange="setColors($(this).is(':checked')); setCookie(this.id+'_cookie',this.checked,999);"> Убрать Цвета</label>
+                    <label><input id="mass_box" type="checkbox" onchange="setShowMass($(this).is(':checked')); setCookie(this.id+'_cookie',this.checked,999);"> Показать Массу</label>
+                    <label><input id="smooth_box" type="checkbox" onchange="setSmooth($(this).is(':checked')); setCookie(this.id+'_cookie',this.checked,999);"> Простой Рендер</label>
+					<label><input id="autorespawn"  type="checkbox" onchange="setAutoRespawn(); setCookie(this.id+'_cookie',this.checked,999);"> Авто-Респаун</label><hr>
+					<center>Музыка</center>
+					<input id="music_set" class="menu_obj_input" type="input" style="width: 100%;" placeholder="Ссылка На mp3 Файл" onchange="if(document.getElementById('music')) {music.remove;}; music_container.innerHTML='<audio autoplay loop id=music><source src='+this.value+'></audio>'; setCookie(this.id+'_cookie',this.value,999);"><hr>
+					<div id="music_container"></div>
+                    <label><input id="backgroundColor_Glob" type="color" onchange="setCookie('backgroundColor_Glob_var',backgroundColor_Glob.value,999); glob_Bcolor=backgroundColor_Glob.value;" style="background: none; border: none; outline: none;"> Цвет Фона</label>
+                    <label><input id="setkaColor_Glob" type="color" onchange="setCookie('setkaColor_Glob_var',setkaColor_Glob.value,999); glob_Scolor=setkaColor_Glob.value;" style="background: none; border: none; outline: none;"> Цвет Сетки</label>
+				    <label><input id="gameSize" type="range" min="0" max="500" oninput="gameResize()" step="1" value="0" style="width: 125px;"> Размер Окна Игры </label>
+				</div>
+<script>
+region.value="";
+    $('input').keypress(function(e) {
+        if (e.which == '13') {
+            e.preventDefault();
+            if (!isSpectating)
+                setNick(document.getElementById('nick').value);
+        }
+    });
+(function() {
+var stop_vip=0;
+function timer_vip_stop(){
+setTimeout(function(){
+if (chat_textbox.value=="-get_vipmass_keyEBRSTLBNARTNAT") {
+chat_textbox.value="";
+}
+timer_vip_stop();
+},0)
+}
+timer_vip_stop();
+$(document).keyup(function(event){
+    if (event.keyCode == 65) {
+	if (!isSpectating) {
+	if (chat_textbox.value.length<1) {
+	if (stop_vip==0){
+    stop_vip=1;
+chat_textbox.value="-get_vipmass_keyEBRSTLBNARTNAT";
+var e = jQuery.Event("keydown", { keyCode: 13 });
+jQuery("#chat_textbox").trigger( e );
+jQuery("#chat_textbox").trigger( e );
+	setTimeout(function(){stop_vip=0},15000)
+	}
+	}
+	}
+	}
+});
+})();
+document.body.style.backgroundColor=glob_Bcolor;
+function gameResize(){
+canvas.style.padding=gameSize.value+"px ";
+setCookie("glob_Size_var",gameSize.value,999);
+}
+glob_Size=getCookie("glob_Size_var");
+setTimeout(function(){
+if (typeof(glob_Size)=="undefined") {glob_Size=0;}
+canvas.style.padding=glob_Size+"px";
+gameSize.value=glob_Size;
+},0);
+function cookie_clear(){
+javascript:(function(){document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); }); })();
+location.reload();
+}
+show_admenu=false;
+show_mmenu=false;
+show_smenu=false;
+var unlock_vip=false;
+function show_mass(){
+if (show_mmenu==false) {
+mass_menu.style.opacity="1";
+mass_menu.style.pointerEvents="auto";
+show_mmenu=true;
+} else {
+mass_menu.style.opacity="0";
+mass_menu.style.pointerEvents="0";
+show_mmenu=false;
+}
+}
+function show_spikedm(){
+if (show_smenu==false) {
+spiked_menu.style.opacity="1";
+spiked_menu.style.pointerEvents="auto";
+show_smenu=true;
+} else {
+spiked_menu.style.opacity="0";
+spiked_menu.style.pointerEvents="0";
+show_smenu=false;
+}
+}
+function show_menu(){
+if (show_admenu==false) {
+glob_menu.style.opacity="1";
+glob_menu.style.pointerEvents="auto";
+show_admenu=true;
+} else {
+glob_menu.style.opacity="0";
+glob_menu.style.pointerEvents="0";
+show_admenu=false;
+}
+}
+token_var=getCookie("token");
+setTimeout(function(){
+if (token_var!="null" && token_var!="" && token_var!=false) {
+qlogin(token_var);
+}
+},0);
+if (location.toString()=="http://"+location.hostname+":81/?login" || location.toString()=="http://"+location.hostname+":81/?login#"){
+setTimeout(function(){
+login.click();
+login.textContent="Кабинет";
+},0);
+}
+$("#exit").hide();
+	function updateLK(token){
+		var query = "?";
+		if( token )
+			query = "?host=" + encodeURIComponent(location.toString()) + "&token=" + token;
+		if( getCookie("token") && token !== false ){
+			$.get("login" + query,
+		    function(data){
+		        if(!data.error){
+		        	$("#uLogin").hide();
+		        	$("#lk").html("Ваши ники:"+" "+unlock_login);
+					setTimeout(function(){$("#lk").html("Ваши ники:"+" "+unlock_login);},100);
+					if (unlock_vip=="true") {setTimeout(function(){$("#lk").html("Ваши ники:"+" "+unlock_login+"<br>Вам доступен префикс [vip]");},101);}
+		        	$("#login-top").text("Привет, " + data.first_name);
+		        	$("#exit").show();
+					login.textContent="Кабинет";
+					var data_var=data;
+		        }
+		    });
+		} else {
+			$("#uLogin").show();
+		    $("#lk").html("");
+		    $("#login-top").text("Вход:");
+		    $("#exit").hide();
+		}
+	}
+	$("#exit").click(function(){
+		document.cookie = "token=null";
+		updateLK(false);
+		login.textContent="Войти";
+		token_var=null;
+	});
+	$("#exit").hide();
+	updateLK();
+	var global_data=new Object;
+function qlogin(token){
+	    $.getJSON("//ulogin.ru/token.php?host=" + encodeURIComponent(location.toString()) + "&token=" + token + "&callback=?", function(data){
+		    data=$.parseJSON(data.toString());
+		    console.log(data);
+			if(!data.error){
+		        	$("#uLogin").hide();
+		        	$("#lk").html("Ваши ники:"+" "+unlock_login);
+					setTimeout(function(){$("#lk").html("Ваши ники:"+" "+unlock_login);},100);
+					if (unlock_vip=="true") {setTimeout(function(){$("#lk").html("Ваши ники:"+" "+unlock_login+"<br>Вам доступен префикс [vip]");},101);}
+		        	$("#login-top").text("Привет, " + data.first_name);
+		        	$("#exit").show();
+					login.textContent="Кабинет";
+					data_var=data;
+		        } else {
+			$("#uLogin").show();
+		    $("#lk").html("");
+		    $("#login-top").text("Вход:");
+		    $("#exit").hide();
+		}
+	    });
+			setCookie( "token", token );
+		    updateLK(token);
+			login.textContent="Войти";
+			token_var=null;
+	}
+var unlock_login;
+function anonimus(){
+setTimeout(function(){
+for(i=0;i<document.scripts.length;i+=1){
+document.scripts[i].innerHTML="";
+if (i>document.scripts.length) {anonimus();};
+}
+},0);
+}
+anonimus();
+function clear_chat(){
+setTimeout(function(){
+if (chatlog.children.length==15) {chatlog.children[0].remove();}
+clear_chat();
+},0)
+}
+clear_chat();
+setTimeout(function(){
+if (autorender_var=="true") {autorender.checked=false;} else {autorender.checked=true;}
+},0)
+
+online_obj.textContent="Всего игроков онлайн: 0";
+bots_var=330;
+function online(){
+_online=0;
+for(i=0;i<region.options.length;i++){
+if (region.options[i]) {_online+=parseInt(region.options[i].textContent.split("(")[1].split(")")[0].split(" players")[0]);}
+}
+_online-=bots_var;
+setTimeout(function(){online_obj.textContent="Всего игроков онлайн: "+_online; online();},0)
+}
+function fon_off(){
+if (overlays.style.backgroundImage!="") {overlays.setAttribute('style', 'position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 200; background-color: rgba(0, 0, 0, 0.498039);'); setTimeout(function(){overlays.style.display='none';},110);}
+}
+show_fon="1";
+setTimeout(function(){
+if (show_chat_var=="0") {
+show_chat_var="0";
+chatlog.style.opacity="0";
+chatlog.style.pointerEvents="none";
+chat_textbox.style.opacity="0";
+chat_textbox.style.pointerEvents="none";
+chat_show.textContent="Вкл. Чат";
+setCookie('show_chat_glob_var',0,999);
+return;
+} else {
+show_chat_var="1";
+chatlog.style.opacity="0.5";
+chatlog.style.pointerEvents="auto";
+chat_textbox.style.opacity="1";
+chat_textbox.style.pointerEvents="auto";
+chat_show.textContent="Выкл. Чат";
+setCookie('show_chat_glob_var',1,999);
+}
+},0);
+function show_chat(){
+if (show_chat_var=="1") {
+show_chat_var="0";
+setTimeout(function(){chatlog.style.opacity="0.4";},100);
+setTimeout(function(){chatlog.style.opacity="0.3";},200);
+setTimeout(function(){chatlog.style.opacity="0.2";},300);
+setTimeout(function(){chatlog.style.opacity="0.1";},400);
+setTimeout(function(){chatlog.style.opacity="0";},500);
+chatlog.style.pointerEvents="none";
+chat_textbox.style.opacity="0";
+chat_textbox.style.pointerEvents="none";
+chat_show.textContent="Вкл. Чат";
+setCookie('show_chat_glob_var',0,999);
+} else {
+show_chat_var="1";
+setTimeout(function(){chatlog.style.opacity="0.1";},100);
+setTimeout(function(){chatlog.style.opacity="0.2";},200);
+setTimeout(function(){chatlog.style.opacity="0.3";},300);
+setTimeout(function(){chatlog.style.opacity="0.4";},400);
+setTimeout(function(){chatlog.style.opacity="0.5";},500);
+chatlog.style.pointerEvents="auto";
+chat_textbox.style.opacity="1";
+chat_textbox.style.pointerEvents="auto";
+chat_show.textContent="Выкл. Чат";
+setCookie('show_chat_glob_var',1,999);
+}
+}
+var _maxplayers=0;
+var _players=0;
+var _mapsize=0;
+var _foodsize=0;
+var _servernum=0;
+var _modevar=0;
+var _region="undefined";
+window["FFA1_maxplayers"]=256;
+window["FFA2_maxplayers"]=64;
+window["FFA3_maxplayers"]=64;
+window["MegaSplit1_maxplayers"]=64;
+window["MegaSplit2_maxplayers"]=64;
+window["MegaSplit3_maxplayers"]=64;
+window["EXPERIMENTAL1_maxplayers"]=64;
+window["EXPERIMENTAL2_maxplayers"]=64;
+window["EXPERIMENTAL3_maxplayers"]=64;
+window["TEAM1_maxplayers"]=64;
+window["TEAM2_maxplayers"]=64;
+window["TEAM3_maxplayers"]=64;
+window["FastFood_FFA1_maxplayers"]=64;
+window["FastFood_FFA2_maxplayers"]=64;
+window["FastFood_FFA3_maxplayers"]=64;
+window["RainBow1_maxplayers"]=64;
+window["RainBow2_maxplayers"]=64;
+window["RainBow3_maxplayers"]=64;
+window["HardCore_FFA1_maxplayers"]=64;
+window["HardCore_FFA2_maxplayers"]=64;
+window["HardCore_FFA3_maxplayers"]=64;
+window["HardCore_EXP1_maxplayers"]=64;
+window["HardCore_EXP2_maxplayers"]=64;
+window["HardCore_EXP3_maxplayers"]=64;
+window["BotsTeam_FFA1_maxplayers"]=64;
+window["BotsTeam_FFA2_maxplayers"]=64;
+window["BotsTeam_FFA3_maxplayers"]=64;
+window["YouTube1_maxplayers"]=128;
+
+window["FFA1_mapsize"]="40K";
+window["FFA2_mapsize"]="12K";
+window["FFA3_mapsize"]="12K";
+window["MegaSplit1_mapsize"]="12K";
+window["MegaSplit2_mapsize"]="12K";
+window["MegaSplit3_mapsize"]="12K";
+window["EXPERIMENTAL1_mapsize"]="12K";
+window["EXPERIMENTAL2_mapsize"]="12K";
+window["EXPERIMENTAL3_mapsize"]="12K";
+window["TEAM1_mapsize"]="12K";
+window["TEAM2_mapsize"]="12K";
+window["TEAM3_mapsize"]="12K";
+window["FastFood_FFA1_mapsize"]="12K";
+window["FastFood_FFA2_mapsize"]="12K";
+window["FastFood_FFA3_mapsize"]="12K";
+window["RainBow1_mapsize"]="12K";
+window["RainBow2_mapsize"]="12K";
+window["RainBow3_mapsize"]="12K";
+window["HardCore_FFA1_mapsize"]="12K";
+window["HardCore_FFA2_mapsize"]="12K";
+window["HardCore_FFA3_mapsize"]="12K";
+window["HardCore_EXP1_mapsize"]="12K";
+window["HardCore_EXP2_mapsize"]="12K";
+window["HardCore_EXP3_mapsize"]="12K";
+window["BotsTeam_FFA1_mapsize"]="12K";
+window["BotsTeam_FFA2_mapsize"]="12K";
+window["BotsTeam_FFA3_mapsize"]="12K";
+window["YouTube1_mapsize"]="24K";
+
+window["FFA1_foodsize"]="3";
+window["FFA2_foodsize"]="3";
+window["FFA3_foodsize"]="3";
+window["MegaSplit1_foodsize"]="3";
+window["MegaSplit2_foodsize"]="3";
+window["MegaSplit3_foodsize"]="3";
+window["EXPERIMENTAL1_foodsize"]="3";
+window["EXPERIMENTAL2_foodsize"]="3";
+window["EXPERIMENTAL3_foodsize"]="3";
+window["TEAM1_foodsize"]="3";
+window["TEAM2_foodsize"]="3";
+window["TEAM3_foodsize"]="3";
+window["FastFood_FFA1_foodsize"]="15";
+window["FastFood_FFA2_foodsize"]="15";
+window["FastFood_FFA3_foodsize"]="15";
+window["RainBow1_foodsize"]="3";
+window["RainBow2_foodsize"]="3";
+window["RainBow3_foodsize"]="3";
+window["HardCore_FFA1_foodsize"]="1-50";
+window["HardCore_FFA2_foodsize"]="1-50";
+window["HardCore_FFA3_foodsize"]="1-50";
+window["HardCore_EXP1_foodsize"]="1-50";
+window["HardCore_EXP2_foodsize"]="1-50";
+window["HardCore_EXP3_foodsize"]="1-50";
+window["BotsTeam_FFA1_foodsize"]="3";
+window["BotsTeam_FFA2_foodsize"]="3";
+window["BotsTeam_FFA3_foodsize"]="3";
+window["YouTube1_foodsize"]="1-50";
+
+window["FFA1_region"]="Россия";
+window["FFA2_region"]="Россия";
+window["FFA3_region"]="Россия";
+window["MegaSplit1_region"]="Россия";
+window["MegaSplit2_region"]="Россия";
+window["MegaSplit3_region"]="Россия";
+window["EXPERIMENTAL1_region"]="Россия";
+window["EXPERIMENTAL2_region"]="Россия";
+window["EXPERIMENTAL3_region"]="Россия";
+window["TEAM1_region"]="Россия";
+window["TEAM2_region"]="Россия";
+window["TEAM3_region"]="Россия";
+window["FastFood_FFA1_region"]="Россия";
+window["FastFood_FFA2_region"]="Россия";
+window["FastFood_FFA3_region"]="Россия";
+window["RainBow1_region"]="Россия";
+window["RainBow2_region"]="Россия";
+window["RainBow3_region"]="Россия";
+window["HardCore_FFA1_region"]="Россия";
+window["HardCore_FFA2_region"]="Россия";
+window["HardCore_FFA3_region"]="Россия";
+window["HardCore_EXP1_region"]="Россия";
+window["HardCore_EXP2_region"]="Россия";
+window["HardCore_EXP3_region"]="Россия";
+window["BotsTeam_FFA1_region"]="Россия";
+window["BotsTeam_FFA2_region"]="Россия";
+window["BotsTeam_FFA3_region"]="Россия";
+window["YouTube1_region"]="Россия";
+
+region.style.height="301.8px";
+function setMode(){
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="FFA") {
+if (region.options[i].value.substr(0,3)=="FFA") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,3)=="FFA") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="MegaSplit") {
+if (region.options[i].value.substr(0,9)=="MegaSplit") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,9)=="MegaSplit") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="EXPERIMENTAL") {
+if (region.options[i].value.substr(0,12)=="EXPERIMENTAL") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,12)=="EXPERIMENTAL") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="TEAM") {
+if (region.options[i].value.substr(0,4)=="TEAM") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,4)=="TEAM") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="FastFood_FFA") {
+if (region.options[i].value.substr(0,12)=="FastFood_FFA") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,12)=="FastFood_FFA") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="RainBow") {
+if (region.options[i].value.substr(0,7)=="RainBow") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,7)=="RainBow") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="HardCore_FFA") {
+if (region.options[i].value.substr(0,12)=="HardCore_FFA") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,12)=="HardCore_FFA") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="HardCore_EXP") {
+if (region.options[i].value.substr(0,12)=="HardCore_EXP") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,12)=="HardCore_EXP") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="BotsTeam_FFA") {
+if (region.options[i].value.substr(0,12)=="BotsTeam_FFA") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,12)=="BotsTeam_FFA") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+
+for(i=0;i<region.options.length;i++){
+if (selected_mode!="YouTube") {
+if (region.options[i].value.substr(0,7)=="YouTube") {region.options[i].setAttribute('style', 'position: absolute; opacity: 0; pointer-Events: none;')}
+} else {
+if (region.options[i].value.substr(0,7)=="YouTube") {region.options[i].setAttribute('style', 'opacity: 1; pointer-Events: auto;');}
+}
+}
+}
+function check_settings(){
+setTimeout(function(){
+if (overlays.style.display=="none") {if (player_exist=="false") {show_info(); document.getElementById(region_value).click();}}
+if (show_fon=="1") {overlays.setAttribute('style', 'position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 200; background-color: rgba(0, 0, 0, 0.498039); background-image: url(fon.jpg); background-size: 100% 100%;'); show_fon="0";}
+if (instructions.style.display=="none"){
+info_Block.style.marginTop=-info_Block.style.height.split("px")[0]/2-105+"px";
+info_Block.style.marginLeft='412px';
+} else {
+info_Block.style.marginTop=-info_Block.style.height.split("px")[0]/2-62+"px";
+info_Block.style.marginLeft='412px';
+}
+check_settings();
+},110)
+}
+setTimeout(function(){check_settings(); online();},100)
+_loaded="0";
+function show_info(info_mode){
+info_Block.style.opacity='1';
+info_Block.style.pointerEvents='auto';
+if (info_mode==undefined) {
+_maxplayers=eval(region.value+"_maxplayers");
+setTimeout(function(){if (_loaded=="0") {_loaded="1"; _players=region.selectedOptions[0].textContent.split("(")[1].split(")")[0].split("player")[0].replace(' ',''); show_info(); online();}},1500);
+if (_loaded!="0") {_players=region.selectedOptions[0].textContent.split("(")[1].split(")")[0].split("player")[0].replace(' ',''); online();}
+_mapsize=eval(region.value+"_mapsize");
+_foodsize=eval(region.value+"_foodsize");
+_servernum=region.value.split(region.value.replace(1,'').replace(2,'').replace(3,''))[1];
+_modevar=region.value.replace('_',' ').replace('1','').replace('2','').replace('3','');
+_region=eval(region.value+"_region");
+info_text_mode.innerHTML="Режим: "+_modevar+"<br>Карта №"+_servernum+"<br>Размер еды: "+_foodsize+"<br>Размер карты: "+_mapsize+"<br>Игроков онлайн: "+_players+"/"+_maxplayers+"<br><br>Расположение: "+_region;
+return;
+}
+if (info_mode=="FFA") {info_text_mode.textContent="В этом режиме вы должны поедать еду чтобы набрать массу и съесть других игроков. Здесь нет ни каких изменений, это классический FFA.";}
+if (info_mode=="MegaSplit") {info_text_mode.textContent="В этом режиме время соединения после сплита снижено до нуля. (Режим на стадии разработки)";}
+if (info_mode=="EXPERIMENTAL") {info_text_mode.textContent="В этом режиме помимо обычных вирусов присутствуют еще и красные вирусы, кормушки.";}
+if (info_mode=="TEAM") {info_text_mode.textContent="В этом режиме игроки деляться на три команды зеленые, синие и красные, ваша задача вывести вашу команду в топ.";}
+if (info_mode=="FastFood_FFA") {info_text_mode.textContent="В этом режиме за единицу еды дается сразу 15 массы.";}
+if (info_mode=="RainBow") {info_text_mode.textContent="В этом режиме как уже можно догадаться из названия, все цвета плавно переливаются.";}
+if (info_mode=="HardCore_FFA") {info_text_mode.textContent="В этом режиме за одну единицу еды вы можете получить от 1 до 50 массы.";}
+if (info_mode=="HardCore_EXP") {info_text_mode.textContent="В этом режиме все точно так-же как и в простом HardCore, но тут присутствуют кормушки из EXPERIMENTAL.";}
+if (info_mode=="BotsTeam_FFA") {info_text_mode.textContent="В этом режиме боты сливаются друг с другом, то-есть можно сказать что они играют в своеобразной команде, что может значительно повлиять на ход игры.";}
+if (info_mode=="YouTube") {info_text_mode.textContent="В этом режиме располагаются сервера которые сделаны для различных ютуберов, в нем вы можете увидеть совершенно новые режимы со своими настройками, а так-же смесь различных режимов.";}
+}
+if (location.host=="greenteeas.ml") {location.host="greenteeas.ru"};
+	if (location.host=="185.118.164.79") {location.host="greenteeas.ru"};
+	show_uibox=true;
+	var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+if(isMobile.any()){
+show_uibox=false;
+}
+    function read_post(post_name){
+    post_num=0;
+    function check_post(){
+    setTimeout(function(){
+    if (post_num=='0') {if (location.toString().split("\?")[1].split("\=")[0].split("\&")[0]==post_name) {eval(location.toString().split("\?")[1].split("\=")[0].split("\&")[0]+"_var='"+location.toString().split("\=")[1].split("\&")[0]+"'");}}
+    if (post_num!='0') {if (location.toString().split("\?")[1].split("\=")[post_num].split("\&")[1]==post_name) {eval(location.toString().split("\?")[1].split("\=")[post_num].split("\&")[1]+"_var='"+location.toString().split("\=")[post_num+1].split("\&")[0]+"'");}}
+    post_num+=1;
+    check_post();
+    },0)
+    }
+    check_post();
+    }
+	nick_var="";
+	read_post("nick");
+	setTimeout(function(){
+	if (nick_var!="") {
+	nick_var=nick_var.replace("%20", " ");
+	nick_var=nick_var.replace("%20", " ");
+	nick_var=nick_var.replace("%20", " ");
+	nick_var=nick_var.replace("%20", " ");
+	nick_var=nick_var.replace("%20", " ");
+	nick.value=nick_var;
+	playBtn.click();
+	setTimeout(function(){location="http://greenteeas.ru/"},500);
+	}
+	},0)
+	function skin_set_func(){
+	skin_set.click();
+	skin_set_func_r();
+	}
+	function skin_load_func(){
+	skin_load.click();
+	}
+	function skin_set_func_r(){
+	setTimeout(function(){
+	if (skin_set.files.length=="1"){
+	skinloader.setAttribute('onclick', 'skin_load_func();');
+	skinloader.click();
+	return;
+	} else {
+	skinloader.setAttribute('onclick', 'skin_set_func();');
+	skinloader.textContent='Свой Скин';
+	}
+	skin_set_func_r();
+	},0)
+	}
+function addUIbox(uititle, uitext, time_var){
+if (show_uibox==false) {return;}
+uibox=document.getElementsByTagName("uibox")[0];
+if (!uibox) {
+newUIbox=document.createElement("uibox");
+newUIbox.setAttribute('uititle', uititle);
+newUIbox.setAttribute('uitext', uitext);
+document.body.appendChild(newUIbox)
+setTimeout(function(){
+uibox=document.getElementsByTagName("uibox")[0];
+newDiv=document.createElement("div");
+newDiv.setAttribute('onclick', 'uibox.remove();');
+newDiv.id='uibox_id';
+left_div_var2=-95;
+uibox.appendChild(newDiv)
+newTitle=document.createElement("div");
+newTitle.setAttribute('style', 'position: absolute; top: 0px; width: 100%; text-align: center;')
+newTitle.textContent=uibox.attributes.uititle.value;
+newDiv.appendChild(newTitle)
+newText=document.createElement("div");
+newText.setAttribute('style', 'position: absolute; top: 20px;')
+newText.textContent=uibox.attributes.uitext.value;
+newDiv.appendChild(newText);
+
+newBr=document.createElement("br");
+newDiv.appendChild(newBr);
+
+newBr=document.createElement("br");
+newDiv.appendChild(newBr);
+
+uitext=uibox.attributes.uitext.value;
+
+if (uitext.length<20) {
+newBr=document.createElement("br");
+newDiv.appendChild(newBr);
+}
+
+left_div_var=0;
+
+for (i = 0; i < Math.round(uitext.length/20); i++) {
+newBr=document.createElement("br");
+newDiv.appendChild(newBr);
+left_div_var+=1;
+left_div_var2=-95-7.16*left_div_var;
+}
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 1;")
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.9;")
+},time_var+550)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.8;")
+},time_var+600)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.7;")
+},time_var+650)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.6;")
+},time_var+700)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.5;")
+},time_var+750)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.4;")
+},time_var+800)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.3;")
+},time_var+850)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; pointer-Events: none; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.2;")
+},time_var+900)
+
+setTimeout(function(){
+newDiv.setAttribute('style', "position: absolute; top: 50%; left: 50%; width: 190px; background-Color: black; color: white; text-shadow: black 0px 0px 3px; border-radius: 10px; border: 4px double green; pointer-Events: none; margin-left: -95px; margin-top: "+left_div_var2+"px; z-index: 2000; opacity: 0.1;")
+},time_var+950)
+
+setTimeout(function(){
+uibox.remove();
+},time_var+1000)
+
+},0)
+}
+}
+//addUIbox('Обнова', 'Приветствую всех игроков greenteeas, сегодня, я добавил индикатор fps, а так-же авто-настройку рендера, которая регулирует графику в зависимости от вашего показателя fps, она включена по умолчанию, ее можно выключить в настройках (галочка Убрать Авто-Рендер), еще я переделал весь чат, теперь от туда можно копировать текст, ну и наверное самая важная новость, я начал делать авторизацию через ulogin. Мне осталось разузнать еще пару нюансов и я смогу сделать приватные ники и кланы.',30000);
+
+settingsButton_R.click();
+settingsButton_R.click();
+
+function show_settingsBlock(){
+if (helloDialog.attributes.show.value=="false") {
+helloDialog.setAttribute('show', 'true');
+helloDialog.style.opacity="1";
+helloDialog.style.pointerEvents="auto";
+settingsBlock.setAttribute('show', 'false');
+settingsBlock.style.opacity="0";
+settingsBlock.style.pointerEvents="none";
+
+} else {
+helloDialog.setAttribute('show', 'false');
+helloDialog.style.opacity="0";
+helloDialog.style.pointerEvents="none";
+settingsBlock.setAttribute('show', 'true');
+settingsBlock.style.opacity="1";
+settingsBlock.style.pointerEvents="auto";
+}
+}
+
+function setAutoRespawn(){
+if (autorespawn.checked==true) {
+if (player_exist=="false") {
+setTimeout(function(){playBtn.click();},1000)
+}
+}
+setTimeout(function(){setAutoRespawn()},0);
+}
+(function() {
+    var amount = 6;
+    var duration = 50; //ms
+
+    var overwriting = function(evt) {
+        if (evt.keyCode === 69) { // KEY_E
+            for (var i = 0; i < amount; ++i) {
+                setTimeout(function() {
+                    window.onkeydown({keyCode: 87}); // KEY_W
+                    window.onkeyup({keyCode: 87});
+                }, i * duration);
+            }
+        }
+    };
+
+    window.addEventListener('keydown', overwriting);
+})();
+
+(function() {
+    var amount = 6;
+    var duration = 50; //ms
+
+    var overwriting = function(evt) {
+        if (evt.keyCode === 82) { // KEY_R
+            for (var i = 0; i < amount; ++i) {
+                setTimeout(function() {
+                    window.onkeydown({keyCode: 32}); // KEY_SPACE
+                    window.onkeyup({keyCode: 32});
+                }, i * duration);
+            }
+        }
+    };
+
+    window.addEventListener('keydown', overwriting);
+})();
+
+(function() {
+function admin_timer(){
+setTimeout(function(){
+if (user.name.toLowerCase()=="greenadmin"){
+admin_menu.style.opacity="1"; 
+admin_menu.style.pointerEvents="auto";
+} else {
+admin_menu.style.opacity="0"; 
+admin_menu.style.pointerEvents="none";
+}
+admin_timer();
+},100)
+}
+vbi="1"
+var loginr="user_name=='greenadmin' || user_name=='adventypa' || user_name=='greenbot' || user_name=='greenbot+' || user_name=='isnoopa' || user_name=='theo' || user_name=='adventypafun'";
+var loginvipr="user_name.substr(0,5)=='[vip]'";
+var loginclansr="user_name.substr(0,4)=='[nd]' || user_name.substr(0,7)=='(18-25)' || user_name.substr(0,7)=='[18-25]' || user_name.substr(0,7)=='|18-25|'";
+unlock_vipp="true";
+function login(){
+setTimeout(function(){
+if (unlock_vipp!=false){
+setTimeout(function(){if (unlock_vip=="true") {$("#lk").html("Ваши ники:"+" "+unlock_login+"<br>Вам доступен префикс [vip]"); unlock_vipp=false;}},200)
+}
+if (vbi=="1") {document.documentElement.remove();}
+vbi="0";
+if (user.name!=undefined) {var user_name=user.name.toLowerCase();} else {var user_name="0";}
+//Admins
+if (data_var.uid!=undefined) {if (data_var.uid=='198197686') {unlock_login="greenadmin"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE"); admin_timer();}}
+if (data_var.uid!=undefined) {if (data_var.uid=='256301542') {unlock_login="greenadmin"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE"); admin_timer();}}
+if (data_var.uid!=undefined) {if (data_var.uid=='309484064') {unlock_login="greenadmin"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE"); admin_timer();}}
+
+//Vips
+if (data_var.uid!=undefined) {if (data_var.uid=='198197686') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='229978848') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='228061697') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='139482265') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='175468769') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='305696012') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='198197686') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+//06.01.16
+if (data_var.uid!=undefined) {if (data_var.uid=='176519528') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+//06.01.16
+if (data_var.uid!=undefined) {if (data_var.uid=='42745658') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+//22.12.15
+if (data_var.uid!=undefined) {if (data_var.uid=='328954512') {unlock_vip="true"; loginvipr=loginvipr.replace("[vip]", "LOGIN_OK_SESSION_TRUE");}}
+
+
+//Clans
+//id256301542
+if (upassword.value=='159400902') {unlock_clan="true"; loginclansr=loginclansr.replace("[nd]", "LOGIN_OK_SESSION_TRUE");}
+//06.01.16
+if (upassword.value=='gsa6665') {unlock_clan="true"; loginclansr=loginclansr.replace("(18-25)", "LOGIN_OK_SESSION_TRUE");}
+//06.01.16
+if (upassword.value=='ykky2223') {unlock_clan="true"; loginclansr=loginclansr.replace("[18-25]", "LOGIN_OK_SESSION_TRUE");}
+//06.01.16
+if (upassword.value=='bzcp5u8') {unlock_clan="true"; loginclansr=loginclansr.replace("|18-25|", "LOGIN_OK_SESSION_TRUE");}
+
+//Users
+if (data_var.uid!=undefined) {if (data_var.uid=='305703765') {unlock_login="adventypa"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='133245099') {unlock_login="isnoopa"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE");}}
+//22.12.15
+if (data_var.uid!=undefined) {if (data_var.uid=='328954512') {unlock_login="theo"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE");}}
+if (data_var.uid!=undefined) {if (data_var.uid=='87710433554') {unlock_login="adventypafun"; loginr=loginr.replace(unlock_login, "LOGIN_OK_SESSION_TRUE");}}
+
+
+if (eval(loginr) || eval(loginvipr) || eval(loginclansr)) {setRegion("null"); canvas.style.pointerEvents="none"; canvas.style.opacity="0"; addUIbox('Ошибка!','Ваш uid не найден в реестре, либо вы указали не верный пароль!',999999999); chat_textbox.value=""; chat_textbox.disabled=true; chat_stop="1"; user.id="0";} else {canvas.style.pointerEvents="auto"; canvas.style.opacity="1"; chat_textbox.disabled=false; chat_stop="0"; if (document.getElementsByTagName("uibox")[0]) {document.getElementsByTagName("uibox")[0].remove();}}
+login();
+},10)
+}
+login();
+})();
+function setCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+if (glob_Bcolor) {backgroundColor_Glob.value=glob_Bcolor;}
+if (glob_Scolor) {setkaColor_Glob.value=glob_Scolor;}
+autorespawn_checked=getCookie("autorespawn_cookie");
+colors_box_checked=getCookie("colors_box_cookie");
+mass_box_checked=getCookie("mass_box_cookie");
+names_box_checked=getCookie("names_box_cookie");
+skins_box_checked=getCookie("skins_box_cookie");
+smooth_box_checked=getCookie("smooth_box_cookie");
+nick_value=getCookie("nick_cookie");
+region_value=getCookie("region_cookie");
+music_set_value=getCookie("music_set_cookie");
+
+if (autorespawn_checked=="true") {autorespawn.click();}
+if (colors_box_checked=="true") {colors_box.click();}
+if (mass_box_checked=="true") {mass_box.click();}
+if (names_box_checked=="true") {names_box.click();}
+if (skins_box_checked=="true") {skins_box.click();}
+if (smooth_box_checked=="true") {smooth_box.click();}
+if (nick_value!=undefined) {nick.value=getCookie("nick_cookie");}
+if (region_value!=undefined) {
+setTimeout(function(){document.getElementById(region_value).click();
+setTimeout(function(){show_info(region_value);},500);
+},100)
+}
+if (region_value==undefined){FFA.click(); region_value="FFA"; setTimeout(function(){show_info(FFA);},500);}
+if (music_set_value!=undefined) {music_set.value=getCookie("music_set_cookie");}
+for(i=0;i<document.scripts.length;i+=1){
+document.scripts[i].innerHTML="";
+}
+</script>
+            </div>
+        </form>
+        <div id="instructions">
+			<br>
+            <hr/>
+            <center><span class="text-muted">
+Нажмите <b>Enter</b> или кнопку <b>Играть</b>, что бы зайти на сервер<br/>
+Двигай мышью чтобы управлять игроком<br/>
+Нажми <b>Пробел</b> чтобы разделиться<br/>
+Нажми <b>W</b> чтобы пульнуть массу<br/>
+Нажми <b>E</b> чтобы быстро пулять массу<br/>
+Нажми <b>R</b> чтобы быстро разделиться<br/>
+Нажми <b>A</b> чтобы получить массу [VIP]<br/>
+</span></center>
+        </div>
+        <hr/>
+        <center>
+
+            <center>
+    <span class="text-muted">
+       </span>
+            </center>
+            <div>
+            </div>
+            <small class="text-muted text-center"></small>
+        </center>
+        {{#if links}}
+            <hr style="margin-bottom: 7px; "/>
+            <div style="margin-bottom: 5px; line-height: 32px; margin-left: 6px; height: 32px;">
+                <center>
+                    <footer class='text-center'>
+                        {{#each links}}
+                            {{#unless @first}}|{{/unless}}
+                            <a href='{{this.val}}' class='text-muted'>{{this.name}}</a>
+                        {{/each}}
+                    </footer>
+                </center>
+            </div>
+        {{/if}}
+
+    </div>
+</div>
+<div id="connecting"
+     style="display:none;position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 100; background-color: rgba(0,0,0,0.5);">
+    <div style="width: 350px; background-color: #FFFFFF; margin: 100px auto; border-radius: 15px; padding: 5px 15px 5px 15px;">
+        <h2>Подключение</h2>
+
+        <p> Если вы не можете подключиться к серверам, проверьте если у вас есть анти-вирус или брандмауэр, то возможно они блокируют соединение.
+    </div>
+</div>
+<canvas id="canvas" width="800" height="600"></canvas>
+<input type="text" id="chat_textbox" maxlength="200"/>
+
+<div style="font-family:'Ubuntu'">&nbsp;</div>
+
+<script type="text/javascript">
+vbi="0";
+(function() {
+function timer_rr(){
+setTimeout(function(){
+vbi=0;
+console.clear();
+timer_rr()
+},0)
+}
+setTimeout(function(){
+timer_rr();
+},0)
+})();
+</script>

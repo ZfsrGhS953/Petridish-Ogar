@@ -1,0 +1,23 @@
+<ul>
+    {{#eachSkin}}
+        <li>
+            <div class="circular" style='background-image: url(../skins/{{name}}.png)' onclick="setCookie('nick_cookie',this.children[0].textContent,999); location='/'"><p
+                    class="imgDescription">{{name}}</p></div>
+<script>
+function setCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+circular_length=document.getElementsByClassName('circular').length;
+for(i = 0; i < circular_length; i++){
+document.getElementsByClassName('circular')[i].setAttribute('style', "background-image: url(../skins/"+document.getElementsByClassName('circular')[i].attributes.style.value.split('\)')[0].split('\(')[1].split('\/')[2].replace(' ', '%20')+")") ;
+}
+</script>
+        </li>
+    {{/eachSkin}}
+</ul>
