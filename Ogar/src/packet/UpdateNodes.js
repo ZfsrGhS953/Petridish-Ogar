@@ -36,16 +36,13 @@ UpdateNodes.prototype.build = function () {
 	var scrambleX = this.playerTracker.scrambleX;
     var scrambleY = this.playerTracker.scrambleY;
     var scrambleId = this.playerTracker.scrambleId;
-	if(packet1!==0){
-		
-	}
 	if(packet2!==0){
 	for (var i = 0; i < this.updNodes.length; i++) {
         var node = this.updNodes[i];
         // Write update record
         writer.writeUInt32(node.nodeId ^ scrambleId);         // Cell ID
-        writer.writeInt16(node.position.x + scrambleX);                // Coordinate X
-        writer.writeInt16(node.position.y + scrambleY);                // Coordinate Y
+        writer.writeInt16(this.playerTracker.flipX>0.5?-(node.position.x + scrambleX):node.position.x + scrambleX);                // Coordinate X
+        writer.writeInt16(this.playerTracker.flipY>0.5?-(node.position.y + scrambleY):node.position.y + scrambleY);                // Coordinate Y
         writer.writeUInt16(node._size);     // Cell Size (not to be confused with mass, because mass = size*size/100)
         writer.writeUInt8(0);                  // Flags
     }
@@ -55,8 +52,8 @@ UpdateNodes.prototype.build = function () {
         
         // Write update record
         writer.writeUInt32(node.nodeId ^ scrambleId);         // Cell ID
-        writer.writeInt16(node.position.x + scrambleX);                // Coordinate X
-        writer.writeInt16(node.position.y + scrambleY);                // Coordinate Y
+        writer.writeInt16(this.playerTracker.flipX>0.5?-(node.position.x + scrambleX):node.position.x + scrambleX);                // Coordinate X
+        writer.writeInt16(this.playerTracker.flipY>0.5?-(node.position.y + scrambleY):node.position.y + scrambleY);                // Coordinate Y
         writer.writeUInt16(node._size);     // Cell Size (not to be confused with mass, because mass = size*size/100)
         
         writer.writeUInt8(1+cellName.length);                  // Flags
