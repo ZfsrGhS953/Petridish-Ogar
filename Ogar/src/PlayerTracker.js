@@ -64,6 +64,8 @@ function PlayerTracker(gameServer, socket) {
     this.scrambleY = 0;
     this.scrambleId = 0;
 	this.scrambleColor=0;
+	this.flipX=0;
+	this.flipY=0;
 
     // Gamemode function
     if (gameServer) {
@@ -152,6 +154,10 @@ PlayerTracker.prototype.joinGame = function (name, skin) {
     this._clearall=true;
     this.visibleNodes = [];
     if(this.gameServer.config.serverScrambleColors)this.scrambleColor=Math.random()*1536;
+	if(this.gameServer.config.serverScrambleOrientation){
+	this.flipX=Math.random();
+	this.flipY=Math.random();
+	}
     if (!this.gameServer.config.serverScrambleCoords) {
         this.scrambleId = 0;
         this.scrambleX = 0;
