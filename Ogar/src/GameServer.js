@@ -84,6 +84,7 @@ function GameServer() {
         serverTeamingAllowed : 1,
 		serverScrambleCoords: 1,    // Toggles scrambling of coordinates. 0 = No scrambling, 1 = lightweight scrambling. 2 = full scrambling (also known as scramble minimap, a little slow, some clients may not support it)
         serverScrambleColors: 0,
+		serverScrambleOrientation: 0,
 		serverMaxLB: 10,            // Controls the maximum players displayed on the leaderboard.
         serverChat: 1,              // Set to 1 to allow chat; 0 to disable chat.
         serverName: '', // Server name
