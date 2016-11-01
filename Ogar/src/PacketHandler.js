@@ -62,6 +62,8 @@ PacketHandler.prototype.handleMessage = function(message) {
                 // protocol late 5, 6, 7
                 client.mouse.x = reader.readInt32() - client.scrambleX;
                 client.mouse.y = reader.readInt32() - client.scrambleY;
+				if(client.flipX>0.5)client.mouse.x=-client.mouse.x;
+				if(client.flipY>0.5)client.mouse.y=-client.mouse.y;
 				var flags = reader.readUInt16();
 				if(flags & 1){
 				if(this.gameServer.config.gamemodeEatForSpeed==0||this.gameServer.time<1||this.gameServer.time>75){
