@@ -189,13 +189,8 @@ Cell.prototype.move = function (border) {
 
 Cell.prototype.checkBorder = function (border) {
     var r = this._size / 2;
-    var x = this.position.x;
-    var y = this.position.y;
-    x = Math.max(x, border.minx + r);
-    y = Math.max(y, border.miny + r);
-    x = Math.min(x, border.maxx - r);
-    y = Math.min(y, border.maxy - r);
-    if (x != this.position.x || y != this.position.y) {
-        this.setPosition({ x: x, y: y });
-    }
+    this.position.x = Math.max(this.position.x, border.minx + r);
+    this.position.y = Math.max(this.position.y, border.miny + r);
+    this.position.x = Math.min(this.position.x, border.maxx - r);
+    this.position.y = Math.min(this.position.y, border.maxy - r);
 };
