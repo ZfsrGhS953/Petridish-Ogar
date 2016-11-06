@@ -399,6 +399,10 @@ PlayerTracker.prototype.updateCenterFreeRoam = function () {
     
     this.centerPos.x += nx * speed;
     this.centerPos.y += ny * speed;
+	this.centerPos.x=Math.min(this.centerPos.x,this.gameServer.border.maxx);
+	this.centerPos.x=Math.max(this.centerPos.x,this.gameServer.border.minx);
+	this.centerPos.y=Math.min(this.centerPos.y,this.gameServer.border.maxy);
+	this.centerPos.y=Math.max(this.centerPos.y,this.gameServer.border.miny);
 };
 
 PlayerTracker.prototype.updateViewBox = function () {
