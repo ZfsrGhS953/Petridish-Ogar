@@ -28,13 +28,20 @@ BlackHole.prototype.move = function (border) {
 
 BlackHole.prototype.checkBorder = function (border) {
     var r = this.getSize() / 2;
-    var x = this.position.x;
-    var y = this.position.y;
-    x = Math.max(x, border.minx + r);
-    y = Math.max(y, border.miny + r);
-    x = Math.min(x, border.maxx - r);
-    y = Math.min(y, border.maxy - r);
-    if (x != this.position.x || y != this.position.y) {
-        this.setPosition({ x: x, y: y });this.setBoost(this.gameServer.config.gamemodeBlackHoleSpeed,Math.random()*6.283185307179586);
-    }
+	if(this.position.x>border.maxx){
+	this.position.x=border.maxx;
+	this.setBoost(this.gameServer.config.gamemodeBlackHoleSpeed,Math.random()*6.283185307179586);
+	}
+	if(this.position.x<border.minx){
+	this.position.x=border.minx;
+	this.setBoost(this.gameServer.config.gamemodeBlackHoleSpeed,Math.random()*6.283185307179586);
+	}
+	if(this.position.y>border.maxy){
+	this.position.y=border.maxy;
+	this.setBoost(this.gameServer.config.gamemodeBlackHoleSpeed,Math.random()*6.283185307179586);
+	}
+	if(this.position.y<border.miny){
+	this.position.y=border.miny;
+	this.setBoost(this.gameServer.config.gamemodeBlackHoleSpeed,Math.random()*6.283185307179586);
+	}
 };
