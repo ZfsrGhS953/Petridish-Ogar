@@ -363,20 +363,10 @@ GameServer.prototype.getRandomSpawn = function(size) {
 };
 
 GameServer.prototype.getRandomPlayerSpawn = function(size) {
-    if(this.config.gamemodeSpaceInvaders==1){
-    return {
-        x: this.border.minx + this.border.width * Math.random(),
-        y: this.border.maxy
-    };
-	}
-	if(this.config.gamemodeEatForSpeed==1){
-	return {
-	x: this.border.minx,
-    y: this.border.miny + this.border.width * Math.random()
-	};
-	}
 	// Random and secure spawns for players and viruses
     var pos = this.getRandomPosition();
+	if(this.config.gamemodeSpaceInvaders==1)pos.y=this.border.maxy;
+	if(this.config.gamemodeEatForSpeed==1)pos.x=this.border.minx;
     var unsafe = this.willCollide(pos, size);
     if (!unsafe) return pos;
 };
