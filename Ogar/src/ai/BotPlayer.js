@@ -5,7 +5,7 @@ var Vector = require('vector2-node');
 function BotPlayer() {
     PlayerTracker.apply(this, Array.prototype.slice.call(arguments));
     //this.setColor(gameServer.getRandomColor());
-
+	this.bp=1;
     this.splitCooldown = 0;
 }
 
