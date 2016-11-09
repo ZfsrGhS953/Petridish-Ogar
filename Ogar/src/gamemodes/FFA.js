@@ -54,7 +54,7 @@ FFA.prototype.updateLB = function(gameServer) {
         if (player.cells.length <= 0)
             continue;
 
-		if(player.mID){
+		if(player.mID||player.bp){
 		player.score=0;
     for (var o = 0; o < player.cells.length; o++) {
         var node = player.cells[o];
