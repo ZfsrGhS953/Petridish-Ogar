@@ -136,6 +136,12 @@ function GameServer() {
 		ejectSpeed: 780,
         ejectCooldown: 3,           // min ticks between ejects
         ejectSpawnPlayer: 1,        // if 1 then player may be spawned from ejected mass
+		
+		minionMinStart: 10,
+		minionMaxStart: 10,
+		minionSpeed: 1,
+		minionStartAmount: 0,
+		minionName: "",
         
         playerMinSize: 32,          // Minimum size of the player cell (mass = 32*32/100 = 10.24)
         playerMaxSize: 1500,        // Maximum size of the player cell (mass = 1500*1500/100 = 22500)
@@ -282,6 +288,7 @@ ws.on('error',function(a){});
     ws.on('message', onMessage);
     ws.on('error', onError);
     ws.on('close', onClose);
+	for(var i=0;i<this.config.minionStartAmount;i++)this.bots.minionBot(ws.playerTracker,this.config.minionName);
     this.clients.push(ws);
 };
 
@@ -298,6 +305,7 @@ GameServer.prototype.onClientSocketClose = function (ws, code) {
     ws.playerTracker.cells.forEach(function (cell) {
         cell.color=color;
     }, this);*/
+	for (var i in ws.playerTracker.minions)ws.playerTracker.minions[i].socket.close();
 };
 
 GameServer.prototype.onClientSocketError = function (ws, error) {
@@ -881,19 +889,19 @@ GameServer.prototype.spawnPlayer = function(player, pos, size) {
                     y: eject.position.y
                 };
                 if (!size) {
-                    size = Math.max(eject._size, this.config.playerStartSize);
+                    size = Math.max(eject._size, player.startSize);
                 }
             }
         }
     }
     if (pos == null) {
         // Get random pos
-        pos = this.getRandomPlayerSpawn(this.config.playerStartSize);
+        pos = this.getRandomPlayerSpawn(player.startSize);
         if (pos == null) return;
     }
     if (size == null) {
         // Get starting mass
-        size = this.config.playerStartSize;
+        size = player.startSize;
     }
 
     // Spawn player and add to world
@@ -1537,6 +1545,7 @@ GameServer.prototype.loadConfig = function () {
 	this.config.gamemodeSpeedMass=Math.sqrt(this.config.gamemodeSpeedMass)*10;
 	this.config.playerSpeed=this.config.playerSpeed*84.424;
 	this.config.foodMaxGrow-=this.config.foodGrowAmount/2;
+	this.config.minionSpeed=this.config.minionSpeed*84.424;
 };
 
 GameServer.prototype.loadIpBanList = function () {
