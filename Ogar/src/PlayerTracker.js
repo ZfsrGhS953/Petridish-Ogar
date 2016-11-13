@@ -36,6 +36,8 @@ function PlayerTracker(gameServer, socket) {
         x: 0,
         y: 0
     };
+	this.minionControl=true;
+	this.minions=[];
     this.tickLeaderboard = 0;
 
     this.team = 0;
@@ -70,6 +72,8 @@ function PlayerTracker(gameServer, socket) {
     // Gamemode function
     if (gameServer) {
 		this.decay=1-this.gameServer.config.playerDecayRate;
+		this.speed=gameServer.config.playerSpeed;
+		this.startSize=gameServer.config.playerStartSize;
         this.centerPos.x = gameServer.border.centerx;
         this.centerPos.y = gameServer.border.centery;
         // Player id
@@ -238,15 +242,27 @@ PlayerTracker.prototype.update = function () {
         this.socket.packetHandler.pressQ = false;
     }
 	
-	if (this.socket.packetHandler.pressE) { // Split mass bots
-        for(var i in this.gameServer.clients)if(this.pID==this.gameServer.clients[i].playerTracker.mID)this.gameServer.clients[i].playerTracker.pressSpace();
+	if (this.socket.packetHandler.pressE) { // Split bots
+        for(var i in this.minions)this.minions[i].pressSpace();
         this.socket.packetHandler.pressE = false;
     }
 	
 	if (this.socket.packetHandler.pressR) { // Eject mass bots
-        for(var i in this.gameServer.clients)if(this.pID==this.gameServer.clients[i].playerTracker.mID)this.gameServer.clients[i].playerTracker.pressW();
+        for(var i in this.minions)this.minions[i].pressW();
         this.socket.packetHandler.pressR = false;
     }
+	
+	if (this.socket.packetHandler.pressT) {
+		this.minionControl=!this.minionControl;
+		for(var i in this.minions){
+		if(this.minionControl){
+		this.minions[i].speed=this.gameServer.config.minionSpeed;
+		}else{
+		this.minions[i].speed=0;
+		}
+		}
+		this.socket.packetHandler.pressT = false;
+	}
 	this.score=0;
 	if(this.cells.length!=0){
     var totalSize = 0;
