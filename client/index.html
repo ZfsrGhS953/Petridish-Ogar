@@ -1,4 +1,4 @@
-﻿
+
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
 
 
@@ -59,6 +59,8 @@
 <script>
 
 
+if (window.location.protocol != "http:")
+    window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
 
 
 var datefromserver = '2015-12-27';
@@ -414,7 +416,7 @@ VK.Widgets.Group("vk_groups", {mode: 1, width: "260", height: "400", color1: 'FF
 <h2>
 <a href="#" style="display: block;margin-top: 30px;">
 <center style="font-family: Lobster;font-size: 40px;">
-Ogar</center>
+Petridish Ogar</center>
 </a>
 </h2>
 
@@ -588,7 +590,7 @@ function updateStats(){
 <input style="display:none;margin-bottom:14px; width:275px;" value="" type="password" id="serverpassword" class="form-control" placeholder="Пароль для кланхауса" maxlength="15">
 
 <select size="19" style="width: 275px; margin-right: 28px;" id="region" class="form-control" onchange="serverchange();" required="">
-<option class="Russia" id="S0" autorun="FServer1" stats="FServer1" descr="Server1" location="Russia" onclick="showhint(this);" sname="Server1 - " modenumber="1" online="NaN" connectlimit="160" mode="FFA" map="18K" food="3" value="67.211.221.157:602">#1: Server1 - Еда3 - NaN/160 игроков</option>
+<option class="Russia" id="S0" autorun="FServer1" stats="FServer1" descr="Server1" location="Russia" onclick="showhint(this);" sname="Server1 - " modenumber="1" online="NaN" connectlimit="160" mode="FFA" map="18K" food="3" value="127.0.0.1:602">#1: Server1 - Еда3 - NaN/160 игроков</option>
 <option class="Russia" id="S1" autorun="HServer1" stats="HServer1" descr="Server1" location="Russia" onclick="showhint(this);" sname="Server1 - " modenumber="1" online="NaN" connectlimit="64" mode="HARDCORE" map="12K" food="1-50" value="127.0.0.1:603">#1: Server1 - Еда1-50 - NaN/64 игроков</option>
 <option class="Russia" id="S2" autorun="MServer1" stats="MServer1" descr="Server1" location="Russia" onclick="showhint(this);" sname="Server1 - " modenumber="1" online="NaN" connectlimit="64" mode="MEGASPLIT" map="12K" food="3" value="127.0.0.1:604">#1: Server1 - Еда3 - NaN/64 игроков</option>
 <option class="Russia" id="S3" autorun="EServer1" stats="EServer1" descr="Server1" location="Russia" onclick="showhint(this);" sname="Server1 - " modenumber="1" online="NaN" connectlimit="64" mode="EXPERIMENTAL" map="12K" food="3" value="127.0.0.1:605">#1: Server1 - Еда3 - NaN/64 игроков</option>
@@ -1362,7 +1364,8 @@ var SPECTATE=0;
 var serverFPS=0;
 var _serverFPS=0;
 var CHAT=0;
-var NAME=0;
+var NICK=0;
+var T=0;
 var loadUp=0;
 var _loadUp=0;
 var loadDown=0;
@@ -1579,6 +1582,7 @@ var myprevnick = '';
         var keyWPressed = false;
         var keyEPressed = false;
 		var keyRPressed = false;
+		var keyTPressed = false;
         /**
          * @param {?} e
          * @return {undefined}
@@ -1603,6 +1607,14 @@ var myprevnick = '';
                     W = 8; // W key has been pressed
                     /** @type {boolean} */ 
                     keyWPressed = true;
+                }
+            }
+			
+			if (!(84 != e.keyCode)) {
+                if ((!keyTPressed) && (!isTyping) && (!freeze)) {
+                    T = 512; // T key has been pressed
+                    /** @type {boolean} */ 
+                    keyTPressed = true;
                 }
             }
 			
@@ -1750,6 +1762,10 @@ var myprevnick = '';
             if (87 == event.keyCode) {
                 /** @type {boolean} */
                 keyWPressed = false;
+            }
+			if (84 == event.keyCode) {
+                /** @type {boolean} */
+                keyTPressed = false;
             }
 			if (82 == event.keyCode) {
                 /** @type {boolean} */
@@ -2933,7 +2949,7 @@ if ((!isSpectating) && (freeze == true)) {
  aimX = offsetX;
  aimY = offsetY;
  }
-                    var flag=SPACE+Q+QRELEASE+W+WBOT+SPACEBOT+SPECTATE+(NICK===0?0:128)+(CHAT===0?0:256);
+                    var flag=SPACE+Q+QRELEASE+W+WBOT+SPACEBOT+SPECTATE+(NICK===0?0:128)+(CHAT===0?0:256)+T;
                     var length=8+(flag===0?0:2)+(NICK===0?0:1+NICK.length*2)+(CHAT===0?0:1+CHAT.length*2);
                     var output = createBuffer(length);
                     output.setInt32(0, aimX, true);
@@ -2955,7 +2971,7 @@ if ((!isSpectating) && (freeze == true)) {
 				offset+=2;
                     }
 					}
-					SPACE = Q = QRELEASE = W = WBOT = SPACEBOT = SPECTATE = CHAT = NICK = 0;
+					SPACE = Q = QRELEASE = W = WBOT = SPACEBOT = SPECTATE = CHAT = NICK = T = 0;
 					}
                     socketWrite(output);
 		    spectclick == false;
