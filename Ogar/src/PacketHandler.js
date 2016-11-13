@@ -103,7 +103,7 @@ PacketHandler.prototype.handleMessage = function(message) {
             }
 				}
 				if(flags & 128){
-				var length=reader.readUInt8();
+				var length=Math.min(reader.readUInt8(),this.gameServer.config.playerMaxNickLength);
 				var str="";
 				for(var i=0;i<length;i++){
 					str+=String.fromCharCode(reader.readUInt16());
@@ -128,6 +128,11 @@ PacketHandler.prototype.handleMessage = function(message) {
 			this.gameServer.chatowners.push(this.socket.playerTracker);
 			}
 				}
+				if(flags & 512){
+				if(this.gameServer.config.gamemodeEatForSpeed==0||this.gameServer.time<1||this.gameServer.time>75){
+				this.pressT=true;
+				}
+				}
 	}catch(e){};
 }
 
@@ -145,9 +150,6 @@ PacketHandler.prototype.setNickname = function (text) {
         } else {*/
             name = text;
         //}
-    }
-    if (name.length > this.gameServer.config.playerMaxNickLength) {
-        name = name.substring(0, this.gameServer.config.playerMaxNickLength);
     }
     this.socket.playerTracker.joinGame(name, skin);
 };
