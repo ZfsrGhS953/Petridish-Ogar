@@ -62,10 +62,9 @@ BotLoader.prototype.minionBot = function(owner,name) {
     s.playerTracker = new BotMinion(this.gameServer, s);
 	s.playerTracker.owner = owner;
     s.packetHandler = new PacketHandler(this.gameServer, s);
-    s.playerTracker.mID = owner.pID;
     // Add to client list
     this.gameServer.clients.push(s);
-
+	owner.minions.push(s.playerTracker);
     // Add to world
 	if(name == ""){
     s.packetHandler.setNickname(this.getName());
