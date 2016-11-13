@@ -7,8 +7,10 @@ var gameServer = require('../GameServer');
 function BotMinion() {
     PlayerTracker.apply(this, Array.prototype.slice.call(arguments));
     //this.setColor(gameServer.getRandomColor());
-	this.owner=0;
-	this.mID=0;
+	this.owner=null;
+	this.mID=1;
+	this.startSize=Math.sqrt(Math.random()*(this.gameServer.config.minionMaxStart-this.gameServer.config.minionMinStart)+this.gameServer.config.minionMinStart)*10;
+	this.speed=this.gameServer.config.minionSpeed;
 }
 
 module.exports = BotMinion;
