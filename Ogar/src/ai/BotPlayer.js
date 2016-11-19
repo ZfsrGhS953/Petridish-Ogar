@@ -5,7 +5,6 @@ var Vector = require('vector2-node');
 function BotPlayer() {
     PlayerTracker.apply(this, Array.prototype.slice.call(arguments));
     //this.setColor(gameServer.getRandomColor());
-	this.bp=1;
     this.splitCooldown = 0;
 }
 
@@ -39,7 +38,17 @@ BotPlayer.prototype.update = function () { // Overrides the update function from
     // Apply anti-teaming if required
     if (effectSum > 2.5)this.decay=1-effectSum*this.gameServer.config.playerDecayRate;
 	}
-	
+	this.score=0;
+	if(this.cells.length!=0){
+    var totalSize = 0;
+    for (var i = 0; i < this.cells.length; i++) {
+        var node = this.cells[i];
+        if (node == null) continue;
+        totalSize += node._size;
+        this.score += node._mass;
+    }
+	this.scale = Math.pow(Math.min(64 / totalSize, 1), 0.4);
+	}
     // Respawn if bot is dead
     if (this.cells.length <= 0) this.gameServer.gameMode.onPlayerSpawn(this.gameServer, this);
     
