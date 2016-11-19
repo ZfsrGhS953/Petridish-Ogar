@@ -57,7 +57,7 @@ Teams.prototype.updateLB = function(gameServer) {
         if (player.isRemoved)
             continue; // Don't add disconnected players to list
         
-		if(player.mID||player.bp){
+		if(player.mID){
 		player.score=0;
     for (var o = 0; o < player.cells.length; o++) {
         var node = player.cells[o];
