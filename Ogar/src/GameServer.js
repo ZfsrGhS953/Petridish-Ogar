@@ -48,7 +48,6 @@ function GameServer() {
 	this.nodesFood = [];
 	this.nodesInvader = [];
     this.quadTree = null;
-	this.frame=0;
 
     this.currentFood = 0;
     this.movingNodes = []; // For move engine
@@ -188,11 +187,6 @@ function GameServer() {
 module.exports = GameServer;
 
 GameServer.prototype.start = function() {
-	var dis=this;
-	setInterval(function(){
-	console.log(dis.frame);
-	dis.frame=0;
-	},1000)
     this.timerLoopBind = this.timerLoop.bind(this);
     this.mainLoopBind = this.mainLoop.bind(this);
     
@@ -527,7 +521,6 @@ GameServer.prototype.mainLoop = function() {
     
     // Loop main functions
     if (this.run) {
-	this.frame++;
     var tick = this.getTick();
 	
 	// Move moving cells
