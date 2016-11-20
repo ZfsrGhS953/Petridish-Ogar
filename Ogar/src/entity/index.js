@@ -7,4 +7,5 @@ module.exports = {
     EjectedMass: require('./EjectedMass'),
 	BlackHole: require('./BlackHole'),
 	Invader: require('./Invader'),
+	Ejection: require('./Ejection'),
 };
