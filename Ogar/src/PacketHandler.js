@@ -61,8 +61,8 @@ PacketHandler.prototype.handleMessage = function(message) {
             var client = this.socket.playerTracker;
                 // protocol late 5, 6, 7
                 client.mouse.x = reader.readInt32() - client.scrambleX;
-                client.mouse.y = reader.readInt32() - client.scrambleY;
 				if(client.flipX>0.5)client.mouse.x=-client.mouse.x;
+                client.mouse.y = reader.readInt32() - client.scrambleY;
 				if(client.flipY>0.5)client.mouse.y=-client.mouse.y;
 				var flags = reader.readUInt16();
 				if(flags & 1){
