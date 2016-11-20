@@ -21,22 +21,6 @@ PlayerCell.prototype.getSkin = function () {
     return this.owner.skin;
 };
 
-PlayerCell.prototype.updateRemerge = function () {
-    var age = this.getAge(this.gameServer.getTick());
-    if (age < 14) {
-        // do not remerge if cell age is smaller than 15 ticks
-        this._canRemerge = false;
-        return;
-    }
-    var baseTtr = this.gameServer.config.playerRecombineTime;        // default baseTtr = 30
-    var ttr = baseTtr + this._mass * 0.5;   // ttr in seconds
-	if (baseTtr == 0) {
-        // instant merge
-        ttr = 25;
-    }
-    this._canRemerge = age >= ttr;
-}
-
 PlayerCell.prototype.canRemerge = function () {
     return this._canRemerge;
 };
@@ -81,71 +65,6 @@ PlayerCell.prototype.getSplitSize = function () {
 };
 
 var splitMultiplier = 1 / Math.sqrt(2);
-
-// Movement
-
-PlayerCell.prototype.moveUser = function (border) {
-    if (this.owner == null || this.owner.socket.isConnected === false) {
-        return;
-    }
-	if(this.gameServer.config.gamemodeEatForSpeed==1&&this.gameServer.time>-1&&this.gameServer.time<75){
-	this.position.x=-1e999;
-	this.setSize(this.gameServer.config.playerStartSize);
-	}else{
-    var x = this.owner.mouse.x;
-    var y = this.owner.mouse.y;
-    if (isNaN(x) || isNaN(y)) {
-        return;
-    }
-    var dx = x - this.position.x;
-    var dy = y - this.position.y;
-    var squared = dx * dx + dy * dy;
-    	if(this.owner.a==1&&this._mass>12.2){
-		this.setSize(Math.sqrt(this._mass-3.2)*10);
-		var cx = this.owner.mouse.x - this.position.x;
-        var cy = this.owner.mouse.y - this.position.y;
-        var dl = cx * cx + cy * cy;
-        if (dl < 1) {
-            cx = 0;
-            cy = 1;
-        } else {
-            dl = Math.sqrt(dl);
-            cx /= dl;
-            cy /= dl;
-        }
-        // Get starting position
-        var pos = {
-            x: this.position.x - cx * this._size,
-            y: this.position.y - cy * this._size
-        };
-        
-        var angle = Math.atan2(cx, cy);
-        if (isNaN(angle)) angle = 0;
-        // Create cell
-        var ejected = new Ejection(this.owner.gameServer, null, pos, 12.649110640673517328);
-        ejected.setColor(this.getColor());
-		this.gameServer.addNode(ejected);
-        ejected.setBoost(this.owner.gameServer.config.ejectSpeed, angle-3.141592653589793);
-	}
-    if (squared == 0) return;
-    
-    // distance
-    var d = Math.sqrt(squared);
-    
-    // normal
-    var nx = dx / d;
-    var ny = dy / d;
-    
-    var speed = this.getSpeed();
-		if(this.owner.a==1&&this._mass>12.25){
-		speed+=20;
-	}
-	if (speed <= 0) return;
-    this.position.x += nx * Math.min(d,speed);
-    this.position.y += ny * Math.min(d,speed);
-	}
-    this.checkBorder(border);
-};
 
 PlayerCell.prototype.checkBorder = function (border) {
     var r = this.getSize() / 2;
