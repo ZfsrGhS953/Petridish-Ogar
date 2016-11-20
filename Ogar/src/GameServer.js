@@ -19,6 +19,10 @@ var Logger = require('./modules/Logger');
 // GameServer implementation
 function GameServer() {
     // Startup
+	this.pow=new Float64Array(65536);
+	for(var i=0;i<65536;i++){
+	this.pow[i]=1/Math.pow(i,0.449);
+	}
 	this.e=0;
 	this.f=0;
 	this.g=0;
@@ -44,6 +48,7 @@ function GameServer() {
 	this.nodesFood = [];
 	this.nodesInvader = [];
     this.quadTree = null;
+	this.frame=0;
 
     this.currentFood = 0;
     this.movingNodes = []; // For move engine
@@ -183,6 +188,11 @@ function GameServer() {
 module.exports = GameServer;
 
 GameServer.prototype.start = function() {
+	var dis=this;
+	setInterval(function(){
+	console.log(dis.frame);
+	dis.frame=0;
+	},1000)
     this.timerLoopBind = this.timerLoop.bind(this);
     this.mainLoopBind = this.mainLoop.bind(this);
     
@@ -517,6 +527,7 @@ GameServer.prototype.mainLoop = function() {
     
     // Loop main functions
     if (this.run) {
+	this.frame++;
     var tick = this.getTick();
 	
 	// Move moving cells
@@ -644,9 +655,76 @@ GameServer.prototype.mainLoop = function() {
             var cell1 = client.cells[j];
             if (cell1.isRemoved)
                 continue;
-            cell1.updateRemerge(this);
-            cell1.moveUser(this.border);
-            cell1.move(this.border);
+    var age = cell1.getAge(this.tickCounter);
+    if (age < 14) {
+        // do not remerge if cell age is smaller than 15 ticks
+        cell1._canRemerge = false;
+    }else{
+    var baseTtr = this.config.playerRecombineTime;        // default baseTtr = 30
+    var ttr = baseTtr + cell1._mass * 0.5;   // ttr in seconds
+	if (baseTtr == 0) {
+        // instant merge
+        ttr = 25;
+    }
+    cell1._canRemerge = age >= ttr;
+	}
+	if(client.socket.isConnected!==false){
+	if(this.config.gamemodeEatForSpeed==1&&this.time>-1&&this.time<75){
+	cell1.position.x=-1e999;
+	cell1.setSize(this.config.playerStartSize);
+	}else{
+    var x = client.mouse.x;
+    var y = client.mouse.y;
+    var dx = x - cell1.position.x;
+    var dy = y - cell1.position.y;
+    var squared = dx * dx + dy * dy;
+    	if(client.a==1&&cell1._mass>12.2){
+		cell1.setSize(Math.sqrt(cell1._mass-3.2)*10);
+		var cx = client.mouse.x - cell1.position.x;
+        var cy = client.mouse.y - cell1.position.y;
+        var dl = cx * cx + cy * cy;
+        if (dl < 1) {
+            cx = 0;
+            cy = 1;
+        } else {
+            dl = Math.sqrt(dl);
+            cx /= dl;
+            cy /= dl;
+        }
+        // Get starting position
+        var pos = {
+            x: cell1.position.x - cx * cell1._size,
+            y: cell1.position.y - cy * cell1._size
+        };
+        
+        var angle = Math.atan2(cx, cy);
+        if (isNaN(angle)) angle = 0;
+        // Create cell
+        var ejected = new Entity.Ejection(this, null, pos, 12.649110640673517328);
+        ejected.color=client.color;
+		this.addNode(ejected);
+        ejected.setBoost(this.config.ejectSpeed, angle-3.141592653589793);
+	}
+    if(squared != 0){
+    
+    // distance
+    var d = Math.sqrt(squared);
+    
+    // normal
+    var nx = dx / d;
+    var ny = dy / d;
+    
+    var speed = client.speed * this.pow[cell1._size|0];
+		if(client.a==1&&cell1._mass>12.25){
+		speed+=20;
+	}
+    cell1.position.x += nx * Math.min(d,speed);
+    cell1.position.y += ny * Math.min(d,speed);
+	}
+    cell1.checkBorder(this.border);
+	}
+	}
+    cell1.move(this.border);
     
 	// Mass decay
             if(cell1._size>this.config.playerMinSize)cell1.setSize(cell1._size*client.decay);
