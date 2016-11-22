@@ -2,7 +2,7 @@
 var Logger = require('./modules/Logger');
 var Commands = require('./modules/CommandList');
 var GameServer = require('./GameServer');
-
+console.log("We have received a global message: PM me (v.ht/voBE) an old.ogarul.io userscript detection bypass (that can be included in a userscript), and I will change my profile pic to say your text (instead of Petridish Ogar) for 1 month!")
 // Init variables
 var showConsole = true;
 
