@@ -26,6 +26,9 @@ More Demos coming soon...
 
 # Frequently Asked Questions
 Q: Will you add client-side anti-bot protections?
+
 A: Doing important things client-side is dangerous as a hacker can edit the client and bypass it. Only server-side bot protections will be added.
+
 Q: Why after some of your "optimizations" my server runs slower?
+
 A: I optimize the code according to how a programmer would think how fast the program runs before and after the optimizations. If it runs slower, it's V8's fault, not mine.
